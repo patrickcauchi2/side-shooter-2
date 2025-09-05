@@ -1,51 +1,462 @@
-<!DOCTYPE html>
-    <html lang = "en">
-    <head>
-        <meta charset = "UTF-8">
-        <title>My Wepage</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>Welcome to my webpage</h1>
-        <p><b>This is the body of my page!</b></p>
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A complete Tailwind CSS starter website with nav, link bars, components, layouts, and utilities.">
+    <title>Valtera Frameworks</title>
 
-        <h2>Emphasised body incoming!</h2>
-        <em>Body is emphasised?!</em>
+    <!-- Tailwind config for CDN build (set dark mode to class) -->
+    <script>
+      window.tailwind = window.tailwind || {};
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            container: { center: true, padding: '1rem' },
+            boxShadow: {
+              soft: '0 10px 30px rgba(2,6,23,0.08)'
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Tailwind CDN (great for prototyping). For production, prefer npm + purge. -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        <h3>Here comes the hyperlink!</h3>
-        <a href="https://www.youtube.com/">This is a link to youtube</a>
+    <!-- Favicon placeholder -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  </head>
 
-        <h4>Preformatted stuff incoming!!</h4>
-        <pre>Hello     World!!</pre>
+  <body class="min-h-screen bg-white text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
+    <!--
+      =============================
+      Sticky Navigation
+      =============================
+    -->
+    <header class="sticky top-0 z-50 border-b border-slate-200/60 bg-white/80 backdrop-blur dark:border-slate-700/60 dark:bg-slate-950/75">
+      <nav class="container mx-auto flex items-center justify-between gap-4 py-3">
+        <!-- Brand -->
+        <a href="#top" class="inline-flex items-center gap-2 font-semibold tracking-tight">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900">V</span>
+          <span class="text-lg">Valtera Tailwind</span>
+        </a>
 
-        <h5>Here is the ordered list:</h5>
-        <ol>
-            <li>list 1</li>
-            <li>list 2</li>
-            <li>list 3</li>
-            <li>list 4</li>
-        </ol>
+        <!-- Desktop links -->
+        <ul class="hidden items-center gap-6 text-sm font-medium md:flex">
+          <li><a class="hover:text-slate-900 hover:underline dark:hover:text-white" href="#components">Components</a></li>
+          <li><a class="hover:text-slate-900 hover:underline dark:hover:text-white" href="#linkbars">Link Bars</a></li>
+          <li><a class="hover:text-slate-900 hover:underline dark:hover:text-white" href="#layouts">Layouts</a></li>
+          <li><a class="hover:text-slate-900 hover:underline dark:hover:text-white" href="#pricing">Pricing</a></li>
+          <li><a class="hover:text-slate-900 hover:underline dark:hover:text-white" href="#faq">FAQ</a></li>
+        </ul>
 
-        <h5>Here is the table incoming!:</h5>
-        <table>
-            <tr>
-                <th>h1</th>
-                <th>h2</th>
-                <th>h3</th>
-                <th>h4</th>
-            </tr>
-            <tr>
-                <td>t1</td>
-                <td>t2</td>
-                <td>t3</td>
-                <td>t4</td>
-            </tr>
-            <tr>
-                <td>t1</td>
-                <td>t2</td>
-                <td>t3</td>
-                <td>t4</td>
-            </tr>       
-        </table>
-    </body>
+        <div class="flex items-center gap-2">
+          <!-- Dark mode toggle -->
+          <button id="theme-toggle" aria-label="Toggle theme" class="rounded-xl border border-slate-200/60 bg-white p-2 text-slate-700 shadow-sm transition hover:shadow dark:border-slate-700/60 dark:bg-slate-900 dark:text-slate-100">
+            <!-- Icons swap via CSS -->
+            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 hidden dark:block"><path d="M18 12a6 6 0 11-12 0 6 6 0 0112 0z"/><path fill-rule="evenodd" d="M12 2a.75.75 0 01.75.75v2.5a.75.75 0 01-1.5 0v-2.5A.75.75 0 0112 2zm0 16a.75.75 0 01.75.75v2.5a.75.75 0 01-1.5 0v-2.5A.75.75 0 0112 18zm10-6a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h2.5A.75.75 0 0122 12zM6 12a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h2.5A.75.75 0 016 12zm12.364-7.95a.75.75 0 011.06 1.06l-1.768 1.768a.75.75 0 11-1.06-1.06l1.768-1.768zM7.404 16.596a.75.75 0 011.06 0l1.768 1.768a.75.75 0 11-1.06 1.06L7.404 17.657a.75.75 0 010-1.06zM4.586 4.05a.75.75 0 011.06 0l1.768 1.768a.75.75 0 11-1.06 1.06L4.586 5.11a.75.75 0 010-1.06zM14.768 16.596a.75.75 0 011.06-1.06l1.768 1.768a.75.75 0 11-1.06 1.06l-1.768-1.768z" clip-rule="evenodd"/></svg>
+            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 dark:hidden"><path d="M21.752 15.002A9 9 0 1111 2.248a8 8 0 1010.752 12.754z"/></svg>
+          </button>
+
+          <!-- CTA -->
+          <a href="#pricing" class="hidden rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow dark:bg-white dark:text-slate-900 md:inline-block">Get Started</a>
+
+          <!-- Mobile menu button -->
+          <button id="menu-btn" class="rounded-xl border border-slate-200/60 bg-white p-2 text-slate-700 shadow-sm transition hover:shadow dark:border-slate-700/60 dark:bg-slate-900 dark:text-slate-100 md:hidden" aria-controls="mobile-menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile menu panel -->
+      <div id="mobile-menu" class="container mx-auto hidden pb-4 md:hidden">
+        <ul class="space-y-2 rounded-xl border border-slate-200/60 bg-white p-3 text-sm font-medium shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800" href="#components">Components</a></li>
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800" href="#linkbars">Link Bars</a></li>
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800" href="#layouts">Layouts</a></li>
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800" href="#pricing">Pricing</a></li>
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800" href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!--
+      =============================
+      Hero
+      =============================
+    -->
+    <section id="top" class="relative overflow-hidden">
+      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900"></div>
+      <div class="container mx-auto grid gap-10 py-16 md:grid-cols-2 md:py-24">
+        <div class="flex flex-col justify-center gap-6">
+          <h1 class="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">Build beautiful UIs fast with <span class="bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-rose-500 bg-clip-text text-transparent">Valtera OS</span></h1>
+          <p class="text-lg text-slate-600 dark:text-slate-300">Explore Valtera’s ecosystem — from the Day Zero Protocol to our Quant App, Supply Chain Infrastructure, and even experimental MMORPG frameworks — all built to push the future of systems architecture.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="#components" class="rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow dark:bg-white dark:text-slate-900">Explore Components</a>
+            <a href="#layouts" class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-900">See Layouts</a>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-200/60 bg-white p-4 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+          <div class="rounded-xl bg-slate-900 p-4 text-slate-50 dark:bg-black">
+            <pre class="overflow-x-auto text-[13px]/6"><code>// Tailwind utility classes compose design quickly
+<div class="flex items-center justify-between rounded-xl bg-white p-4 shadow dark:bg-slate-900">
+  <h3 class="text-lg font-semibold">Hello Tailwind</h3>
+  <button class="rounded-lg bg-slate-900 px-4 py-2 text-sm text-white dark:bg-white dark:text-slate-900">Action</button>
+</div>
+</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      =============================
+      Link Bars (tabs, breadcrumbs, filters)
+      =============================
+    -->
+    <section id="linkbars" class="container mx-auto space-y-10 py-14">
+      <h2 class="text-2xl font-bold tracking-tight">Link Bar Patterns</h2>
+
+      <!-- Tabs -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tabs</div>
+        <div class="flex flex-wrap gap-2">
+          <a class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white dark:bg-white dark:text-slate-900" href="#">Overview</a>
+          <a class="rounded-lg px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Integrations</a>
+          <a class="rounded-lg px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Analytics</a>
+          <a class="rounded-lg px-4 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800" href="#">Settings</a>
+        </div>
+      </div>
+
+      <!-- Breadcrumbs -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Breadcrumbs</div>
+        <nav class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300" aria-label="Breadcrumb">
+          <a href="#" class="hover:underline">Home</a>
+          <span>/</span>
+          <a href="#" class="hover:underline">Library</a>
+          <span>/</span>
+          <span class="font-semibold text-slate-900 dark:text-white">Data</span>
+        </nav>
+      </div>
+
+      <!-- Filter Pills / Link Bar -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Filter Pills</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button class="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white dark:bg-white dark:text-slate-900">All</button>
+          <button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900">Design</button>
+          <button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900">Code</button>
+          <button class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900">Docs</button>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      =============================
+      Components Showcase
+      =============================
+    -->
+    <section id="components" class="container mx-auto space-y-10 py-14">
+      <h2 class="text-2xl font-bold tracking-tight">Components</h2>
+
+      <!-- Buttons -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Buttons</div>
+        <div class="flex flex-wrap gap-3">
+          <button class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow hover:-translate-y-0.5 hover:shadow-lg transition dark:bg-white dark:text-slate-900">Primary</button>
+          <button class="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-100 dark:hover:bg-slate-900">Secondary</button>
+          <button class="rounded-xl bg-transparent px-4 py-2 text-sm font-semibold underline-offset-4 hover:underline">Ghost</button>
+          <button class="rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white shadow">Gradient</button>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cards</div>
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="rounded-2xl border border-slate-200/60 bg-white p-5 shadow-sm transition hover:shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+            <h3 class="mb-1 text-lg font-semibold">Analytics</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">KPIs, funnels, and dashboards with a clean API.</p>
+            <a href="#" class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 hover:underline dark:text-white">Read more <span aria-hidden>→</span></a>
+          </article>
+          <article class="rounded-2xl border border-slate-200/60 bg-white p-5 shadow-sm transition hover:shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+            <h3 class="mb-1 text-lg font-semibold">Integrations</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Connect Stripe, Slack, GitHub, and more.</p>
+            <a href="#" class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 hover:underline dark:text-white">Read more <span aria-hidden>→</span></a>
+          </article>
+          <article class="rounded-2xl border border-slate-200/60 bg-white p-5 shadow-sm transition hover:shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+            <h3 class="mb-1 text-lg font-semibold">Security</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Best practices: 2FA, SSO, secrets, audits.</p>
+            <a href="#" class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 hover:underline dark:text-white">Read more <span aria-hidden>→</span></a>
+          </article>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Alerts</div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="flex items-start gap-3 rounded-xl border border-emerald-200/60 bg-emerald-50 p-4 text-emerald-800 dark:border-emerald-800/60 dark:bg-emerald-900/20 dark:text-emerald-200">
+            <span class="mt-0.5">✅</span>
+            <div>
+              <p class="font-semibold">Success</p>
+              <p class="text-sm">Your changes have been saved.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 rounded-xl border border-amber-200/60 bg-amber-50 p-4 text-amber-800 dark:border-amber-800/60 dark:bg-amber-900/20 dark:text-amber-200">
+            <span class="mt-0.5">⚠️</span>
+            <div>
+              <p class="font-semibold">Warning</p>
+              <p class="text-sm">You’re approaching your usage limit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      =============================
+      Boilerplate Layouts
+      =============================
+    -->
+    <section id="layouts" class="container mx-auto space-y-10 py-14">
+      <h2 class="text-2xl font-bold tracking-tight">Boilerplate Layouts</h2>
+
+      <!-- App Shell with Sidebar -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">App Shell (Sidebar + Header)</div>
+        <div class="grid gap-6 md:grid-cols-[240px,1fr]">
+          <aside class="rounded-xl border border-slate-200/60 bg-slate-50 p-4 dark:border-slate-700/60 dark:bg-slate-900/50">
+            <nav class="space-y-1 text-sm">
+              <a class="block rounded-lg px-3 py-2 font-medium text-slate-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800" href="#">Dashboard</a>
+              <a class="block rounded-lg px-3 py-2 font-medium text-slate-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800" href="#">Projects</a>
+              <a class="block rounded-lg px-3 py-2 font-medium text-slate-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800" href="#">Teams</a>
+              <a class="block rounded-lg px-3 py-2 font-medium text-slate-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800" href="#">Settings</a>
+            </nav>
+          </aside>
+          <main class="rounded-xl border border-slate-200/60 bg-white p-6 dark:border-slate-700/60 dark:bg-slate-900">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">Dashboard</h3>
+              <button class="rounded-lg bg-slate-900 px-4 py-2 text-sm text-white dark:bg-white dark:text-slate-900">New</button>
+            </div>
+            <div class="mt-6 grid gap-4 md:grid-cols-3">
+              <div class="rounded-lg border border-slate-200/60 p-4 dark:border-slate-700/60">
+                <p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Revenue</p>
+                <p class="mt-2 text-2xl font-bold">$24,300</p>
+              </div>
+              <div class="rounded-lg border border-slate-200/60 p-4 dark:border-slate-700/60">
+                <p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Users</p>
+                <p class="mt-2 text-2xl font-bold">1,204</p>
+              </div>
+              <div class="rounded-lg border border-slate-200/60 p-4 dark:border-slate-700/60">
+                <p class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Errors</p>
+                <p class="mt-2 text-2xl font-bold">3</p>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <!-- Marketing landing (Hero + Features) already covered above -->
+
+      <!-- Simple Article / Docs layout -->
+      <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-soft dark:border-slate-700/60 dark:bg-slate-900">
+        <div class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Docs Layout</div>
+        <div class="prose max-w-none dark:prose-invert">
+          <h3>Getting Started</h3>
+          <p>Install via CDN for quick prototyping:
+          <code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</code>.</p>
+          <h4>Production Setup</h4>
+          <ol>
+            <li><code>npm install -D tailwindcss</code></li>
+            <li><code>npx tailwindcss init</code></li>
+            <li>Configure <code>content</code> paths and import <code>@tailwind base; @tailwind components; @tailwind utilities;</code></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      =============================
+      Pricing
+      =============================
+    -->
+    <section id="pricing" class="container mx-auto py-14">
+      <h2 class="text-2xl font-bold tracking-tight">Pricing</h2>
+      <p class="mt-2 text-slate-600 dark:text-slate-300">Simple, transparent plans. Upgrade any time.</p>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <!-- Free -->
+        <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <h3 class="text-lg font-bold">Starter</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">For prototypes and small projects.</p>
+          <div class="my-4 text-3xl font-extrabold">$0<span class="text-base font-medium text-slate-500">/mo</span></div>
+          <ul class="space-y-2 text-sm">
+            <li>✅ Components</li>
+            <li>✅ Link bars</li>
+            <li>❌ Advanced layouts</li>
+          </ul>
+          <button class="mt-5 w-full rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white dark:bg-white dark:text-slate-900">Get started</button>
+        </div>
+        <!-- Pro -->
+        <div class="relative rounded-2xl border-2 border-slate-900 bg-white p-6 shadow-soft dark:border-white dark:bg-slate-900">
+          <div class="absolute -top-3 right-4 rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-amber-900">Popular</div>
+          <h3 class="text-lg font-bold">Pro</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">For startups shipping fast.</p>
+          <div class="my-4 text-3xl font-extrabold">$19<span class="text-base font-medium text-slate-500">/mo</span></div>
+          <ul class="space-y-2 text-sm">
+            <li>✅ Everything in Starter</li>
+            <li>✅ Advanced layouts</li>
+            <li>✅ Email support</li>
+          </ul>
+          <button class="mt-5 w-full rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white dark:bg-white dark:text-slate-900">Upgrade</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <h3 class="text-lg font-bold">Enterprise</h3>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">For teams and complex apps.</p>
+          <div class="my-4 text-3xl font-extrabold">Custom</div>
+          <ul class="space-y-2 text-sm">
+            <li>✅ SSO, audit logs</li>
+            <li>✅ Priority support</li>
+            <li>✅ Design tokens</li>
+          </ul>
+          <button class="mt-5 w-full rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900">Contact sales</button>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      =============================
+      FAQ
+      =============================
+    -->
+    <section id="faq" class="container mx-auto space-y-6 py-14">
+      <h2 class="text-2xl font-bold tracking-tight">FAQ</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <details class="group rounded-xl border border-slate-200/60 bg-white p-4 open:shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <summary class="cursor-pointer select-none font-semibold">
+            Can I use this with React / Next.js?
+          </summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Yes. Install Tailwind via npm and add the classes to your JSX. The utilities work the same.</p>
+        </details>
+        <details class="group rounded-xl border border-slate-200/60 bg-white p-4 open:shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <summary class="cursor-pointer select-none font-semibold">
+            Is the CDN version okay for production?
+          </summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">It’s fine for demos. For production, set up Tailwind’s build so unused classes are removed (tree-shaken) for performance.</p>
+        </details>
+        <details class="group rounded-xl border border-slate-200/60 bg-white p-4 open:shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <summary class="cursor-pointer select-none font-semibold">
+            How do I add dark mode?
+          </summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">This template uses <code>darkMode: 'class'</code>. Toggling the <code>dark</code> class on <code>&lt;html&gt;</code> switches themes.</p>
+        </details>
+        <details class="group rounded-xl border border-slate-200/60 bg-white p-4 open:shadow-sm dark:border-slate-700/60 dark:bg-slate-900">
+          <summary class="cursor-pointer select-none font-semibold">
+            How do I split this into pages?
+          </summary>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Duplicate this file to <code>about.html</code>, <code>pricing.html</code>, etc. Keep the same header/footer and update links.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-10 border-t border-slate-200/60 bg-white py-10 text-sm dark:border-slate-700/60 dark:bg-slate-950">
+      <div class="container mx-auto grid gap-8 md:grid-cols-4">
+        <div>
+          <div class="flex items-center gap-2 font-semibold">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900">V</span>
+            Valtera Tailwind
+          </div>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">A fast-start template to build polished UIs with Tailwind.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Product</h4>
+          <ul class="mt-3 space-y-2">
+            <li><a class="hover:underline" href="#components">Components</a></li>
+            <li><a class="hover:underline" href="#layouts">Layouts</a></li>
+            <li><a class="hover:underline" href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Company</h4>
+          <ul class="mt-3 space-y-2">
+            <li><a class="hover:underline" href="#">About</a></li>
+            <li><a class="hover:underline" href="#">Blog</a></li>
+            <li><a class="hover:underline" href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Legal</h4>
+          <ul class="mt-3 space-y-2">
+            <li><a class="hover:underline" href="#">Privacy</a></li>
+            <li><a class="hover:underline" href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="container mx-auto mt-8 flex items-center justify-between border-t border-slate-200/60 pt-6 text-slate-500 dark:border-slate-700/60">
+        <p>© <span id="year"></span> Valtera Frameworks Pty Ltd</p>
+        <div class="flex items-center gap-4">
+          <a href="#" aria-label="Twitter" class="hover:text-slate-700 dark:hover:text-slate-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M8.29 20c7.547 0 11.675-6.253 11.675-11.675 0-.177 0-.355-.012-.53A8.35 8.35 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996A4.107 4.107 0 0015.448 4c-2.266 0-4.103 1.837-4.103 4.102 0 .322.036.635.106.935-3.41-.171-6.437-1.803-8.46-4.285a4.09 4.09 0 00-.555 2.063 4.102 4.102 0 001.825 3.417 4.073 4.073 0 01-1.86-.514v.052c0 2.042 1.452 3.747 3.379 4.133a4.09 4.09 0 01-1.853.07c.522 1.63 2.038 2.816 3.833 2.85A8.233 8.233 0 012 18.405 11.616 11.616 0 008.29 20"/></svg></a>
+          <a href="#" aria-label="GitHub" class="hover:text-slate-700 dark:hover:text-slate-200"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.012c0 4.424 2.865 8.176 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.909-.62.069-.607.069-.607 1.004.07 1.532 1.032 1.532 1.032.893 1.53 2.343 1.088 2.913.833.091-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.987 1.03-2.688-.104-.253-.447-1.272.098-2.65 0 0 .84-.269 2.75 1.027A9.564 9.564 0 0112 6.844c.85.004 1.706.115 2.506.337 1.909-1.296 2.748-1.027 2.748-1.027.547 1.378.204 2.397.1 2.65.64.701 1.028 1.595 1.028 2.688 0 3.847-2.339 4.695-4.566 4.944.358.308.676.919.676 1.853 0 1.337-.012 2.415-.012 2.744 0 .268.18.579.688.48A10.02 10.02 0 0022 12.012C22 6.484 17.523 2 12 2z" clip-rule="evenodd"/></svg></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="to-top" class="fixed bottom-6 right-6 hidden rounded-full border border-slate-200/60 bg-white p-3 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg dark:border-slate-700/60 dark:bg-slate-900" aria-label="Back to top">
+      ↑
+    </button>
+
+    <!--
+      =============================
+      Minimal JS: theme toggle, mobile menu, year, back-to-top
+      =============================
+    -->
+    <script>
+      // Persisted theme toggle (darkMode: 'class')
+      (function() {
+        const root = document.documentElement;
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          root.classList.add('dark');
+        }
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+          root.classList.toggle('dark');
+          localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+        });
+      })();
+
+      // Mobile menu
+      (function(){
+        const btn = document.getElementById('menu-btn');
+        const panel = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!expanded));
+          panel.classList.toggle('hidden');
+        });
+      })();
+
+      // Current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Back to top visibility + action
+      (function(){
+        const btn = document.getElementById('to-top');
+        const show = () => {
+          if (window.scrollY > 600) btn.classList.remove('hidden');
+          else btn.classList.add('hidden');
+        };
+        window.addEventListener('scroll', show, { passive: true });
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        show();
+      })();
+    </script>
+  </body>
 </html>
